@@ -17,6 +17,26 @@ Via Composer
 $ composer require nedmas/laravel-fortrabbit-storage
 ```
 
+## Configuration
+
+First follow the install guide from Fortrabbit for configuring the
+[Object Storage](https://help.fortrabbit.com/install-laravel-5#toc-object-storage).
+
+Then rename the disk from `s3` to `fortrabbit` and replace the `s3` driver with `fortrabbit`.
+Finally you need to add an additional config key for `host` which retrieves the value from the app secrets array.
+
+``` php
+'fortrabbit' => [
+    'driver'   => 'fortrabbit',
+    'key'      => $secrets['OBJECT_STORAGE']['KEY'],
+    'secret'   => $secrets['OBJECT_STORAGE']['SECRET'],
+    'bucket'   => $secrets['OBJECT_STORAGE']['BUCKET'],
+    'endpoint' => 'https://'. $secrets['OBJECT_STORAGE']['SERVER'],
+    'region'   => $secrets['OBJECT_STORAGE']['REGION'],
+    'host'     => $secrets['OBJECT_STORAGE']['HOST']
+],
+```
+
 ## Usage
 
 ``` php
